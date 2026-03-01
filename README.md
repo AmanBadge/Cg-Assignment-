@@ -1,2 +1,0 @@
-# Cg-Assignment-
-Dse2
