@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8">        
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Line Drawing Algorithm</title>
     <style>
@@ -21,7 +21,7 @@
         }
         
         .container {
-            max-width: 1000px;
+            max-width: device-width;
             margin: 0 auto;
             background: white;
             padding: 40px;
@@ -187,7 +187,11 @@
         <!-- Line Drawing Algorithms Overview -->
         <h2>Line Drawing Algorithms</h2>
         <div class="definition">
-            <p>Line drawing is a fundamental operation in computer graphics. A line drawing algorithm determines which pixels should be illuminated to best represent a line between two points on a discrete pixel grid (raster display). Since a continuous line cannot be perfectly represented on a pixel grid, line drawing algorithms use various techniques to approximate the line with the best possible visual result.</p>
+            <p>Line drawing is a fundamental operation in computer graphics. A line drawing algorithm determines which pixels should be illuminated to best represent a line between two points on a discrete pixel grid (raster display). Since a continuous line cannot be perfectly represented on a pixel grid, line drawing algorithms use various techniques to approximate the line with the best possible visual result. In General two line drawing algorithms are used:-</p>
+            <ul>
+                <li><strong>Digital Differential Analyzer.</strong></li>
+                <li><strong>Bresenham's Algorithm.</strong></li>
+            </ul>
             <h3>Key Objectives:</h3>
             <ul>
                 <li><strong>Accuracy:</strong> The line should be as close as possible to the mathematical line.</li>
@@ -224,6 +228,8 @@
                         <li>y = y + y_increment</li>
                     </ul>
                 </li>
+                <li>Repeat the step 6 until x = x1</li>
+                <li>When x = x1, end algorithm.</li>
             </ol>
             
             <h3>Advantages:</h3>
@@ -240,7 +246,7 @@
                 <li>Slightly slower than Bresenham's algorithm</li>
             </ul>
             
-            <!-- DDA Flowchart -->
+            <!-- DDA Flowchart 
             <h3>DDA Algorithm Flowchart:</h3>
             <div class="flowchart">
                 <div class="flowchart-box">START</div>
@@ -262,28 +268,28 @@
                 <div class="flowchart-box">x = x + x_inc, y = y + y_inc, i++</div>
                 <div class="flowchart-arrow">↓ (back to check)</div>
                 <div class="flowchart-box">No ↓ END</div>
-            </div>
+            </div>-->
             
             <!-- DDA Code Example -->
             <h3>DDA Algorithm Code (Pseudocode):</h3>
             <div class="code">
-void DDA(int x0, int y0, int x1, int y1) {
-    float dx = x1 - x0;
+                <br>void DDA(int x0, int y0, int x1, int y1) </br>{ 
+    <br>float dx = x1 - x0;</br>
     float dy = y1 - y0;
-    int steps = (int)max(abs(dx), abs(dy));
+    <br>int steps = (int)max(abs(dx), abs(dy));</br>
     
-    float x_inc = dx / steps;
-    float y_inc = dy / steps;
+    float x_inc = (dx / steps);
+                    <br>float y_inc = (dy / steps);</br>
     
-    float x = x0;
+    <br>float x = x0;</br>
     float y = y0;
     
-    for (int i = 0; i <= steps; i++) {
-        plot_pixel(round(x), round(y));
+    <br>for (int i = 0; i <= steps; i++) </br>{
+        <br>plot_pixel(round(x), round(y));</br>
         x += x_inc;
         y += y_inc;
     }
-}
+        <br>}</br>
             </div>
             
             <!-- DDA Example -->
@@ -364,7 +370,7 @@ void DDA(int x0, int y0, int x1, int y1) {
             
             <!-- DDA Canvas Visualization -->
             <h3>DDA Line Visualization:</h3>
-            <canvas id="ddaCanvas" width="500" height="400"></canvas>
+            <canvas id="ddaCanvas" width="250" height="200"></canvas>
         </div>
         
         <!-- Bresenham Algorithm -->
@@ -417,7 +423,7 @@ void DDA(int x0, int y0, int x1, int y1) {
                 <li>Requires handling of different slope cases</li>
             </ul>
             
-            <!-- Bresenham Flowchart -->
+            <!-- Bresenham Flowchart 
             <h3>Bresenham's Algorithm Flowchart:</h3>
             <div class="flowchart">
                 <div class="flowchart-box">START</div>
@@ -444,36 +450,36 @@ void DDA(int x0, int y0, int x1, int y1) {
                 <div class="flowchart-box">No ↓ END</div>
             </div>
             
-            <!-- Bresenham Code Example -->
+             Bresenham Code Example -->
             <h3>Bresenham's Algorithm Code (Pseudocode):</h3>
             <div class="code">
-void Bresenham(int x0, int y0, int x1, int y1) {
-    int dx = abs(x1 - x0);
+                <br>void Bresenham(int x0, int y0, int x1, int y1) </br>{
+                    <br>  int dx = abs(x1 - x0);</br>
     int dy = abs(y1 - y0);
-    int x = x0, y = y0;
+                    <br> int x = x0, y = y0;</br>
     int x_inc = (x0 < x1) ? 1 : -1;
-    int y_inc = (y0 < y1) ? 1 : -1;
+        <br> int y_inc = (y0 < y1) ? 1 : -1;</br>
     
-    if (dx > dy) {
-        int p = 2*dy - dx;
-        for (int i = 0; i < dx; i++) {
+            <br> if (dx > dy)</br> {
+                <br>  int p = 2*dy - dx;</br>
+                <br>    for (int i = 0; i < dx; i++)</br> {
             plot_pixel(x, y);
-            x += x_inc;
-            if (p < 0) {
+                    <br>x += x_inc;</br>
+                    <br> if (p < 0)</br> {
                 p += 2*dy;
-            } else {
+            } <br>else </br>{
                 y += y_inc;
                 p += 2*dy - 2*dx;
             }
-        }
+                        <br>}</br>
     } else {
         int p = 2*dx - dy;
-        for (int i = 0; i < dy; i++) {
-            plot_pixel(x, y);
+        <br>for (int i = 0; i < dy; i++)</br> {
+            <br>plot_pixel(x, y);</br>
             y += y_inc;
-            if (p < 0) {
+            <br> if (p < 0) </br>{
                 p += 2*dx;
-            } else {
+            } <br>else </br>{
                 x += x_inc;
                 p += 2*dx - 2*dy;
             }
@@ -578,7 +584,7 @@ void Bresenham(int x0, int y0, int x1, int y1) {
             
             <!-- Bresenham Canvas Visualization -->
             <h3>Bresenham's Line Visualization:</h3>
-            <canvas id="bresenhamCanvas" width="500" height="400"></canvas>
+            <canvas id="bresenhamCanvas" width="260" height="200"></canvas>
         </div>
         
         <!-- Comparison Section -->
@@ -730,17 +736,17 @@ void Bresenham(int x0, int y0, int x1, int y1) {
         ddaCtx.fillRect(0, 0, ddaCanvas.width, ddaCanvas.height);
         
         drawGrid(ddaCanvas, ddaCtx);
-        let ddaPoints = ddaAlgorithm(1, 1, 20, 14);
-        drawIdealLine(ddaCtx, 1, 1, 20, 14);
+        let ddaPoints = ddaAlgorithm(1, 1, 9, 5);
+        drawIdealLine(ddaCtx, 1, 1, 9, 5);
         drawPixels(ddaCtx, ddaPoints, '#667eea');
         
         // Add labels
         ddaCtx.fillStyle = '#333';
         ddaCtx.font = '12px Arial';
-        ddaCtx.fillText('Start (1,1)', 15, 20);
-        ddaCtx.fillText('End (20,14)', 410, 390);
-        ddaCtx.fillText('Ideal Line (dashed)', 300, 20);
-        ddaCtx.fillText('DDA Pixels (solid)', 300, 35);
+        ddaCtx.fillText('Start (0,0)', 15, 20);
+        ddaCtx.fillText('End (8,4)', 200, 120);
+        ddaCtx.fillText('Ideal Line (dashed)', 125, 20);
+        ddaCtx.fillText('DDA Pixels (solid)', 125, 35);
         
         // Initialize Bresenham Canvas
         let bresenhamCanvas = document.getElementById('bresenhamCanvas');
@@ -749,17 +755,17 @@ void Bresenham(int x0, int y0, int x1, int y1) {
         bresenhamCtx.fillRect(0, 0, bresenhamCanvas.width, bresenhamCanvas.height);
         
         drawGrid(bresenhamCanvas, bresenhamCtx);
-        let bresenhamPoints = bresenhamAlgorithm(1, 1, 20, 14);
-        drawIdealLine(bresenhamCtx, 1, 1, 20, 14);
+        let bresenhamPoints = bresenhamAlgorithm(1, 1, 9, 5);
+        drawIdealLine(bresenhamCtx, 1, 1, 9, 5);
         drawPixels(bresenhamCtx, bresenhamPoints, '#764ba2');
         
         // Add labels
         bresenhamCtx.fillStyle = '#333';
         bresenhamCtx.font = '12px Arial';
-        bresenhamCtx.fillText('Start (1,1)', 15, 20);
-        bresenhamCtx.fillText('End (20,14)', 410, 390);
-        bresenhamCtx.fillText('Ideal Line (dashed)', 300, 20);
-        bresenhamCtx.fillText('Bresenham Pixels (solid)', 300, 35);
+        bresenhamCtx.fillText('Start (0,0)', 15, 20);
+        bresenhamCtx.fillText('End (8,4)', 200, 120);
+        bresenhamCtx.fillText('Ideal Line (dashed)', 125, 20);
+        bresenhamCtx.fillText('Bresenham Pixels (solid)', 125, 35);
     </script>
 </body>
 </html>
